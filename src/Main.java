@@ -1,9 +1,51 @@
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Panzer!");
-        Panzer panzer1 = new Panzer("Russian", 100,
-                100, 15, 5.0, 10.0);
+        System.out.println("Panzers!");
+
+        Panzer panzers[] = {
+                new Panzer("Russian 1", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 2", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 3", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 4", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 5", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 6", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 7", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 8", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("Russian 9", 100,
+                        100, 15, 5.0, 10.0),
+        };
+        Panzer enemyPanzers[] = {
+                new Panzer("German 1", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 2", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 3", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 4", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 5", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 6", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 7", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 8", 100,
+                        100, 15, 5.0, 10.0),
+                new Panzer("German 9", 100,
+                        100, 15, 5.0, 10.0),
+        };
+
+        BattleField battle = new BattleField(panzers, enemyPanzers);
+        System.out.println(battle.getSize());
     }
 }
 
@@ -50,4 +92,18 @@ class Panzer extends AbstractPanzer implements Playable {
     public void defense() {
 
     }
+}
+
+class BattleField {
+    Panzer[] panzers;
+    Panzer[] enemyPanzers;
+    BattleField(Panzer panzers[], Panzer enemyPanzers[]) {
+        this.panzers = panzers;
+        this.enemyPanzers = enemyPanzers;
+    }
+
+    int getSize() {
+        return this.panzers.length;
+    }
+
 }
