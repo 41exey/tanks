@@ -133,19 +133,23 @@ class BattleField
 
             if (swith == 0)
             {
-                System.out.println("Team 2 under attack");
+//                System.out.println("Team 2 under attack");
             }
             else
                 {
 
-                System.out.println("Team 1 under attack");
+//                System.out.println("Team 1 under attack");
             }
             swith ^= 1;
 
-            System.out.println(swith);
+//            System.out.println(swith);
 
-            for(int i = 0; i < this.panzers.length; i++)
+//            System.out.println(">");
+//            System.out.println(">");
+            for(int i = 0; i < this.panzers[0].length; i++)
             {
+
+//                System.out.println("");
                 this.panzers[0][i].health -= 10;
             }
 
@@ -164,7 +168,7 @@ class BattleField
         }
         while(!endBattle);
 
-//        getStat();
+        getStat();
     }
 
     void getStat()
