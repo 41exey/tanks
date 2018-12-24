@@ -1,6 +1,10 @@
-public class Main {
+import java.util.Random;
 
-    public static void main(String[] args) {
+public class Main
+{
+
+    public static void main(String[] args)
+    {
         System.out.println("Panzers!");
 
         Panzer panzers[] = {
@@ -45,11 +49,14 @@ public class Main {
         };
 
         BattleField battle = new BattleField(panzers, enemyPanzers);
-        System.out.println(battle.getSize());
+//        System.out.println(battle.getSize());
+//        battle.getStat();
+        battle.battle();
     }
 }
 
-abstract class AbstractPanzer {
+abstract class AbstractPanzer
+{
     String name;
     int health;
     int armor;
@@ -58,7 +65,8 @@ abstract class AbstractPanzer {
     double turnaroundTime;
 
     AbstractPanzer(String name, int health, int armor, int damage,
-           double shotTime, double turnaroundTime) {
+           double shotTime, double turnaroundTime)
+    {
         this.name = name;
         this.health = health;
         this.armor = armor;
@@ -71,15 +79,18 @@ abstract class AbstractPanzer {
     abstract void defense();
 }
 
-interface Playable {
+interface Playable
+{
     int attack();
     void defense();
 }
 
-class Panzer extends AbstractPanzer implements Playable {
+class Panzer extends AbstractPanzer implements Playable
+{
 
     Panzer(String name, int health, int armor, int damage,
-           double shotTime, double turnaroundTime) {
+           double shotTime, double turnaroundTime)
+    {
         super(name, health, armor, damage,
                 shotTime, turnaroundTime);
     }
@@ -94,16 +105,62 @@ class Panzer extends AbstractPanzer implements Playable {
     }
 }
 
-class BattleField {
+class BattleField
+{
     Panzer[] panzers;
+    int panzersHelath;
     Panzer[] enemyPanzers;
-    BattleField(Panzer panzers[], Panzer enemyPanzers[]) {
+    int enemyPanzersHaalth;
+    Random rnd;
+    BattleField(Panzer panzers[], Panzer enemyPanzers[])
+    {
         this.panzers = panzers;
         this.enemyPanzers = enemyPanzers;
+        rnd = new Random(System.currentTimeMillis());
     }
 
-    int getSize() {
+    int getSize()
+    {
         return this.panzers.length;
     }
 
+    void battle()
+    {
+        do {
+
+            for(int i = 0; i < this.panzers.length; i++)
+            {
+                this.panzers[i].health -= 50;
+            }
+
+            panzersHelath = 0;
+            for(int i = 0; i < this.panzers.length; i++)
+            {
+                panzersHelath += this.panzers[i].health;
+            }
+            enemyPanzersHaalth = 0;
+            for(int i = 0; i < this.enemyPanzers.length; i++)
+            {
+                enemyPanzersHaalth += this.enemyPanzers[i].health;
+            }
+        }
+        while(panzersHelath > 0 && enemyPanzersHaalth > 0);
+
+        getStat();
+    }
+
+    void getStat()
+    {
+//        this.panzers[0] = null;
+        System.out.println(" Team 1 (" + this.panzers.length + ")");
+        for(int i = 0; i < this.panzers.length; i++)
+        {
+             System.out.println(" - Name: " + panzers[i].name + " Health: " + panzers[i].health);
+        }
+        System.out.println(" Team 2 (" + this.enemyPanzers.length + ")");
+        for(int i = 0; i < this.enemyPanzers.length; i++)
+        {
+            System.out.println(" - Name: " + enemyPanzers[i].name + " Health: " + enemyPanzers[i].health);
+        }
+    }
 }
