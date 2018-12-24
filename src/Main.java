@@ -107,15 +107,18 @@ class Panzer extends AbstractPanzer implements Playable
 
 class BattleField
 {
-    Panzer[] panzers;
+    Panzer panzers[][];
     int panzersHelath;
-    Panzer[] enemyPanzers;
-    int enemyPanzersHaalth;
+//    Panzer enemyPanzers[];
+//    int enemyPanzersHaalth;
+    boolean endBattle;
     Random rnd;
+    int swith;
     BattleField(Panzer panzers[], Panzer enemyPanzers[])
     {
-        this.panzers = panzers;
-        this.enemyPanzers = enemyPanzers;
+        this.panzers = new Panzer[2][];
+        this.panzers[0] = panzers;
+        this.panzers[1] = enemyPanzers;
         rnd = new Random(System.currentTimeMillis());
     }
 
@@ -128,39 +131,49 @@ class BattleField
     {
         do {
 
+            if (swith == 0)
+            {
+                System.out.println("Team 2 under attack");
+            }
+            else
+                {
+
+                System.out.println("Team 1 under attack");
+            }
+            swith ^= 1;
+
+            System.out.println(swith);
+
             for(int i = 0; i < this.panzers.length; i++)
             {
-                this.panzers[i].health -= 50;
+                this.panzers[0][i].health -= 10;
             }
 
-            panzersHelath = 0;
-            for(int i = 0; i < this.panzers.length; i++)
-            {
-                panzersHelath += this.panzers[i].health;
+            for (int i = 0; i < 2; i++) {
+                panzersHelath = 0;
+                for (int j = 0; j < this.panzers[i].length; j++) {
+                    panzersHelath += this.panzers[i][j].health;
+                }
+                if (panzersHelath <= 0) {
+                    endBattle = true;
+                    break;
+                }
+
             }
-            enemyPanzersHaalth = 0;
-            for(int i = 0; i < this.enemyPanzers.length; i++)
-            {
-                enemyPanzersHaalth += this.enemyPanzers[i].health;
-            }
+
         }
-        while(panzersHelath > 0 && enemyPanzersHaalth > 0);
+        while(!endBattle);
 
-        getStat();
+//        getStat();
     }
 
     void getStat()
     {
-//        this.panzers[0] = null;
-        System.out.println(" Team 1 (" + this.panzers.length + ")");
-        for(int i = 0; i < this.panzers.length; i++)
-        {
-             System.out.println(" - Name: " + panzers[i].name + " Health: " + panzers[i].health);
-        }
-        System.out.println(" Team 2 (" + this.enemyPanzers.length + ")");
-        for(int i = 0; i < this.enemyPanzers.length; i++)
-        {
-            System.out.println(" - Name: " + enemyPanzers[i].name + " Health: " + enemyPanzers[i].health);
+        for(int i = 0; i < 2; i++) {
+            System.out.println(" Team " + (i + 1) +" (" + this.panzers[0].length + ")");
+            for (int j = 0; j < this.panzers[i].length; j++) {
+                System.out.println(" - Name: " + panzers[i][j].name + " Health: " + panzers[i][j].health);
+            }
         }
     }
 }
